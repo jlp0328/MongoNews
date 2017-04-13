@@ -1,0 +1,29 @@
+body{
+
+  /*font-family: 'PT Sans Narrow', sans-serif;*/
+  font-family: 'Patua One', cursive;
+}
+
+#displayNewspaperGif {
+
+    background-image: url("../img/newspaper_cropped.gif");
+    color: white;
+    height: 250px;
+    /*background-color: #cccccc;*/
+}
+
+li {
+  color: white;
+  font-size: 18px;
+}
+
+.title{
+    font-size: 25px;
+}
+
+.saveArticle {
+  background-color: #F8C471;
+  border-color: #F8C471;
+}
+
+
