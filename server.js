@@ -28,7 +28,7 @@ app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
 // Database configuration with mongoose
-mongoose.connect("mongodb://localhost/mongonews");
+mongoose.connect("mongodb://heroku_3g888fzh:5ui81vhbuai5umnscnv1dulk7l@ds153710.mlab.com:53710/heroku_3g888fzh");
 var db = mongoose.connection;
 
 // Show any mongoose errors
@@ -137,7 +137,7 @@ app.get("/stories/:id", function(req, res) {
 
 app.get("/saved", function(req,res){
 
-  Story.where({ _id: req.body.id }).update({ saved: true })
+  Story.where({ _id: req.body.id }).update({ $set:{saved: true }})
 
       .exec(function(error, doc) {
     // Log any errors

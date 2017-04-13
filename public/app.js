@@ -16,15 +16,10 @@ $(document).on("click", ".saveArticle", function() {
 
       $(this).attr("data-status", true);
 
-
-
-
       console.log(status);
 
       var thisId = $(this).attr("data-id");
       console.log(thisId);
-
-
 
         // Run a POST request to change the note, using what's entered in the inputs
   $.ajax({
