@@ -1,19 +1,41 @@
-<h2>Saved Articles</h2>
+<h1 style="text-align: center; margin-bottom: 50px">Saved Articles</h1>
 
     {{#each story}}
     {{#if saved}}
-
-        <a href="/" class="btn btn-info btn-lg saveArticle">
-        <span class="glyphicon glyphicon-heart-empty"></span>
-                  View Articles!</a>
 
         <div class="card col-md-6" style="padding-bottom: 15px; text-align: center">
             <img class="card-img-top" src="{{this.image}}">
               <div class="card-block">
               <h4 class="card-title">{{this.title}}</h4>
-            <a href="#" data-status="{{this.saved}}" data-id="{{this._id}}" class="btn btn-primary saveArticle">Save Article!</a>
+
+            <button type="button" data-status="{{this.saved}}" data-id="{{this._id}}" class="btn btn-primary takeNotes" data-toggle="modal" data-target="#exampleModal">Take notes!</button>
+
+            <a href="/saved" data-status="{{this.saved}}" data-id="{{this._id}}" class="btn btn-primary removeFavorite">UN-favorite!</a>
             </div>
         </div>
 
     {{/if}}
     {{/each}}
+
+  <div class="modal fade">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Modal title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+      </div>
+
+      <div class="modal-body">
+        <p>Modal body text goes here.</p>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -31,6 +31,9 @@ app.set("view engine", "handlebars");
 mongoose.connect("mongodb://heroku_3g888fzh:5ui81vhbuai5umnscnv1dulk7l@ds153710.mlab.com:53710/heroku_3g888fzh");
 var db = mongoose.connection;
 
+// mongoose.connect("mongodb://localhost/mongonews");
+// var db = mongoose.connection;
+
 // Show any mongoose errors
 db.on("error", function(error) {
   console.log("Mongoose Error: ", error);
@@ -45,7 +48,7 @@ db.once("open", function() {
 
 app.get("/", function(req, res) {
 
-      var query = Story.find({}).limit(10);
+      var query = Story.find({}).sort({$natural: -1}).limit(10);
 
       query.exec(function(err, docs){
 
@@ -71,7 +74,7 @@ app.get("/scrape", function(req, res) {
           result.title = $(this).find("div.meta").find("h3").find("a").text();
           result.link =  $(this).find("a").attr("href");
           result.image = $(this).find("a").find("img").attr("data-img");
-          result.saved = false;
+          // result.saved = false;
 
           console.log(result);
 
@@ -95,7 +98,7 @@ app.get("/scrape", function(req, res) {
     });
     // closing request
 
-    res.send("Scrape Complete");
+    res.redirect("/");
 
   });
   // closing app.get
@@ -137,7 +140,23 @@ app.get("/stories/:id", function(req, res) {
 
 app.get("/saved", function(req,res){
 
-  Story.where({ _id: req.body.id }).update({ $set:{saved: true }})
+    Story.find({saved:true}, function(error, doc) {
+    // Log any errors
+    if (error) {
+      console.log(error);
+    }
+    // Or send the doc to the browser as a json object
+    else {
+      res.render("saved",{story: doc});
+    }
+  });
+
+});
+
+// Change from false to true
+app.post("/updates/:id", function(req,res){
+
+  Story.where({ _id: req.params.id }).update({ $set:{saved: true }})
 
       .exec(function(error, doc) {
     // Log any errors
@@ -146,12 +165,31 @@ app.get("/saved", function(req,res){
     }
     // Otherwise, send the doc to the browser as a json object
     else {
-      res.render("saved",{story: doc});
+
+      res.json(doc)
     }
   });
+
 });
 
+// Change from true to false
+app.post("/updates/:id/:saved", function(req,res){
 
+  Story.where({_id: req.params.id, saved:true }).update({ $set:{saved: false }})
+
+      .exec(function(error, doc) {
+    // Log any errors
+    if (error) {
+      console.log(error);
+    }
+    // Otherwise, send the doc to the browser as a json object
+    else {
+
+      res.json(doc)
+    }
+  });
+
+});
 
 app.listen(port, function() {
   console.log("App running on port " + port);
