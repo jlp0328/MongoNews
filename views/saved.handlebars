@@ -4,38 +4,30 @@
     {{#if saved}}
 
         <div class="card col-md-6" style="padding-bottom: 15px; text-align: center">
+
             <img class="card-img-top" src="{{this.image}}">
               <div class="card-block">
               <h4 class="card-title">{{this.title}}</h4>
 
-            <button type="button" data-status="{{this.saved}}" data-id="{{this._id}}" class="btn btn-primary takeNotes" data-toggle="modal" data-target="#exampleModal">Take notes!</button>
+            <a data-status="{{this.saved}}" data-id="{{this._id}}" class="btn btn-primary takeNotes">Take notes!</a>
 
             <a href="/saved" data-status="{{this.saved}}" data-id="{{this._id}}" class="btn btn-primary removeFavorite">UN-favorite!</a>
             </div>
+
+            <div class="card col-md-6 notesSection" style="display: none" id="{{this._id}}">
+              <h4>Notes</h4>
+{{!--
+              <input type="text" placeholder="Title of Note" style="margin-left: 65px; margin-bottom: 10px" id="noteHeader"> --}}
+
+              <textarea rows="4" cols="50" id="newNotes" style="margin-left: 65px">
+
+              </textarea>
+
+              <a href="/saved" data-status="{{this.saved}}" data-id="{{this._id}}" class="btn btn-primary saveNotes">Save Notes</a>
+            </div>
+
         </div>
 
     {{/if}}
     {{/each}}
 
-  <div class="modal fade">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Modal title</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-      </div>
-
-      <div class="modal-body">
-        <p>Modal body text goes here.</p>
-      </div>
-
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Save changes</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-
-    </div>
-  </div>
-</div>
