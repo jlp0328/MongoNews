@@ -28,11 +28,11 @@ app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
 // Database configuration with mongoose
-mongoose.connect("mongodb://heroku_3g888fzh:5ui81vhbuai5umnscnv1dulk7l@ds153710.mlab.com:53710/heroku_3g888fzh");
-var db = mongoose.connection;
-
-// mongoose.connect("mongodb://localhost/mongonews");
+// mongoose.connect("mongodb://heroku_3g888fzh:5ui81vhbuai5umnscnv1dulk7l@ds153710.mlab.com:53710/heroku_3g888fzh");
 // var db = mongoose.connection;
+
+mongoose.connect("mongodb://localhost/mongonews");
+var db = mongoose.connection;
 
 // Show any mongoose errors
 db.on("error", function(error) {
@@ -195,6 +195,7 @@ app.post("/updates/:id/:saved", function(req,res){
 app.post("/notes/:id", function(req, res) {
   // Create a new note and pass the req.body to the entry
   var newNote = new Note(req.body);
+  console.log(newNote);
 
   // And save the new note the db
   newNote.save(function(error, doc) {

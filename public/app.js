@@ -66,21 +66,28 @@ $(document).on("click", ".removeFavorite", function(e) {
 $(document).on("click", ".saveNotes", function(e) {
 
    var thisId = $(this).attr("data-id");
+   var showSection = "#" + thisId;
+   var noteContentId = "#newNote_" + thisId;
+   var noteContent = $(noteContentId).val();
 
   // Run a POST request to change the note, using what's entered in the inputs
   $.ajax({
     method: "POST",
     url: "/notes/" + thisId,
     data: {
+        body: noteContent
       // Value taken from title input
-      body: $("#newNotes").val()
-    }
+    },
+
   })
     // With that done
     .done(function(data) {
       // Log the response
       console.log(data);
       // Empty the notes section
+      $(showSection).append("<h4 style='margin-top: 30px'>" + "Saved Notes" + "</h4>");
+      $(showSection).append("<p>" + noteContent + "</p>");
+      $(showSection).append("<button data-id='" + data._id + "'>Clear Note</button>");
     });
 
 
@@ -102,14 +109,14 @@ $(document).on("click", ".takeNotes", function(e) {
     .done(function(data) {
       console.log(data);
       // // The title of the article
-      $(showSection).append("<h4 style='margin-top: 30px'>" + "Saved Notes" + "</h4>");
-      $(showSection).append("<p>" + data.note.body + "</p>");
+      $(showSection).append("<h4 style='margin-top: 30px; margin-left: 30px'>" + "Saved Notes" + "</h4>");
+      $(showSection).append("<p style='margin-left: 65px'>" + data.note.body + "</p>");
       // An input to enter a new title
       // $(showSection).append("<input id='titleinput' name='title' >");
       // A textarea to add a new note body
       // $(showSection).append("<textarea id='bodyinput' name='body'></textarea>");
       // A button to submit a new note, with the id of the article saved to it
-      $(showSection).append("<button data-id='" + data._id + "' id='savenote'>Clear Note</button>");
+      $(showSection).append("<button style='margin-left: 30px'data-id='" + data._id + ">Clear Note</button>");
 
   });
   });
