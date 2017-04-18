@@ -28,11 +28,11 @@ app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
 // Database configuration with mongoose
-// mongoose.connect("mongodb://heroku_3g888fzh:5ui81vhbuai5umnscnv1dulk7l@ds153710.mlab.com:53710/heroku_3g888fzh");
-// var db = mongoose.connection;
-
-mongoose.connect("mongodb://localhost/mongonews");
+mongoose.connect("mongodb://heroku_3g888fzh:5ui81vhbuai5umnscnv1dulk7l@ds153710.mlab.com:53710/heroku_3g888fzh");
 var db = mongoose.connection;
+
+// mongoose.connect("mongodb://localhost/mongonews");
+// var db = mongoose.connection;
 
 // Show any mongoose errors
 db.on("error", function(error) {
